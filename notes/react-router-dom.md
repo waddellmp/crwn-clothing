@@ -21,7 +21,7 @@ Topmost react-router-dom component that wraps all app `<Route/>` components.
 </BrowserRouter>
 ```
 
-### Route
+### Route Component
 
 Route components controls when a react componenent renders based on the browser URL.
 
@@ -38,6 +38,19 @@ Above both would render on the same page. To fix this place `exact` prop on the 
 The `<Route/>` component has access to and passes down
 props to its direct children.
 
+The 3 props passed down from the <Route/> component to the direct child component is:
+History, Location, Match
+
+### History Location Match Props
+
+Three props passed down from the <Route/>.
+
+History contains browser history data and methods.
+
+Location mimics the browser's navigation api (window.location).
+
+Match is where the url match information is stored. The Url parameters are stored in a params object called.
+
 ```jsx
 // The history prop is provided by the wrapping <Route/> component.
 // Any non-direct children doesn't have access to the Route props.
@@ -47,8 +60,6 @@ const HomePage = ({ history }) => (
     </div>
 );
 ```
-
-Props
 
 ### Switch
 
@@ -74,6 +85,50 @@ To make only the About component render, use the `exact` keyword on the first ro
     <Route exact path="/" component={Home} />
     <Route path="/about" component={About} />
 </Switch>
+```
+
+### Navigation with <Link/>
+
+Use the <Link to="/topics"/> component to move around the app (really rendering components with matching paths).
+
+The `to` prop is the target url.
+
+The <Link/> is basically like an anchor html tag but without doing a page request or sending a server request when clicked.
+
+Page Reload = BAD
+We don't want to reload the page since our single page app is running on the javascript execution thread in the browser. This is not ideal, instead using the link to load a certain component by matching path.
+
+## Navigation with History prop
+
+The other way to navigate around the app is to use the History prop.
+
+The History prop provides the navigation api to push or pop paths in memory.
+
+```js
+//\
+const Home = () => (
+    <div>
+        <h1>Home</h1>
+    </div>
+);
+const Trainings = ({ history }) => {
+    // Send user back to home by pushing the home path to end of array.
+    const handleGoBack = () => history.push('/');
+    return (
+        <div className="trainings-component">
+            <div className="training-filters">
+                <button onClick={handleGoBack}>Back to Home</button>
+            </div>
+        </div>
+    );
+};
+
+<BrowserRouter>
+    <Switch>
+        <Route path="/" component={Home} />
+        <Route path="/trainings" component={Trainings} />
+    </Switch>
+</BrowserRouter>;
 ```
 
 ### withRouter(component)
