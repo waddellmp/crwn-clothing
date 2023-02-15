@@ -18,6 +18,10 @@
 .env.test.local
 .env.production.local
 
+# webstorm
+.iml
+.idea
+
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
