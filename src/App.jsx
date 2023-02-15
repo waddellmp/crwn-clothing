@@ -9,6 +9,7 @@ import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 
 function App() {
     const [user, setUser] = useState(null);
+    console.log('Mounting <App/>')
 
     // Run after successful mount (1x)
     useEffect(() => {
