@@ -39,6 +39,7 @@ function App() {
 
         // Close subscriptions
         return () => {
+            console.log('Unsubscribing')
             unsubscribeFromAuth();
 
             if (unsubscribeUserSnapShot) {
